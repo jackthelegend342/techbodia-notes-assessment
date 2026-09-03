@@ -1,0 +1,12 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Backend
+backend/NotesApp.Api/bin/
+backend/NotesApp.Api/obj/
+
+# OS / editor
+.DS_Store
+.vscode/
