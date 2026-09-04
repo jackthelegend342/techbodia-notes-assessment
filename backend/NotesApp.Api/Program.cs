@@ -8,7 +8,7 @@ using NotesApp.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration
+// Configuration 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtSecret = jwtSection["Secret"]
     ?? throw new InvalidOperationException("Missing 'Jwt:Secret' configuration value.");
