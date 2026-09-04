@@ -8,7 +8,6 @@ export const axiosInstance = axios.create({
   timeout: 15000,
 });
 
-// Attach the JWT bearer token to every outgoing request, when present.
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
   if (token) {
@@ -18,7 +17,6 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   return config;
 });
 
-// Normalize ProblemDetails errors and handle expired/invalid sessions globally.
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ProblemDetails>) => {
