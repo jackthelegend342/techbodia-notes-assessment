@@ -1,6 +1,6 @@
--- ============================================================
+-- =====================================
 -- Notes Application - SQL Server Schema
--- ============================================================
+-- =====================================
 
 IF DB_ID(N'techbodiaSQL') IS NULL
 BEGIN
@@ -8,9 +8,9 @@ BEGIN
 END
 GO
 
--- ============================================================
+-- ============
 -- Table: users
--- ============================================================
+-- ============
 IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'users')
 BEGIN
     CREATE TABLE dbo.users (
@@ -31,9 +31,9 @@ BEGIN
 END
 GO
 
--- ============================================================
+-- ============
 -- Table: notes
--- ============================================================
+-- ============
 IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'notes')
 BEGIN
     CREATE TABLE dbo.notes (
@@ -50,8 +50,6 @@ BEGIN
 END
 GO
 
--- Critical for data-isolation query performance:
--- every note query is filtered by user_id.
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'idx_notes_user_id')
 BEGIN
     CREATE INDEX idx_notes_user_id ON dbo.notes (user_id);
@@ -64,11 +62,9 @@ BEGIN
 END
 GO
 
--- ============================================================
--- Trigger: keep updated_at fresh on users table row changes
--- (Notes.updated_at is set explicitly in application SQL on UPDATE,
---  per requirement; this trigger only covers the users table.)
--- ============================================================
+-- ========
+-- Trigger
+-- ========
 IF OBJECT_ID('dbo.trg_users_updated_at', 'TR') IS NOT NULL
     DROP TRIGGER dbo.trg_users_updated_at;
 GO
