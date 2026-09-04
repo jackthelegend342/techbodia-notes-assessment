@@ -4,7 +4,7 @@
 
 IF DB_ID(N'techbodiaSQL') IS NULL
 BEGIN
-    PRINT 'Run this script against your target database (e.g. techbodia). Skipping CREATE DATABASE.';
+    PRINT 'CREATE DATABASE';
 END
 GO
 
