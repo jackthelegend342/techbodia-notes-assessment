@@ -6,10 +6,6 @@ using NotesApp.Api.Models;
 
 namespace NotesApp.Api.Repositories
 {
-    /// <summary>
-    /// Raw, parameterized Dapper queries against the "users" table (SQL Server).
-    /// No ORM change-tracking; every statement is explicit SQL.
-    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly IDbConnectionFactory _connectionFactory;
@@ -63,7 +59,6 @@ namespace NotesApp.Api.Repositories
 
         public async Task<User> CreateAsync(string email, string displayName, string passwordHash)
         {
-            // SQL Server has no RETURNING clause — OUTPUT INSERTED.* serves the same purpose.
             const string sql = @"
                 DECLARE @NewId UNIQUEIDENTIFIER = NEWID();
                 DECLARE @Now DATETIME2 = SYSUTCDATETIME();
