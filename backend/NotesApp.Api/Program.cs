@@ -8,18 +8,14 @@ using NotesApp.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ---------------------------------------------------------------------
 // Configuration
-// ---------------------------------------------------------------------
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtSecret = jwtSection["Secret"]
     ?? throw new InvalidOperationException("Missing 'Jwt:Secret' configuration value.");
 var jwtIssuer = jwtSection["Issuer"] ?? "NotesApp";
 var jwtAudience = jwtSection["Audience"] ?? "NotesAppClient";
 
-// ---------------------------------------------------------------------
 // Services (Dependency Injection)
-// ---------------------------------------------------------------------
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -102,11 +98,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// ---------------------------------------------------------------------
-// Middleware pipeline
-// ---------------------------------------------------------------------
 
-// Global exception handling — must be first so it wraps everything downstream.
+// Global exception handling 
 app.UseGlobalExceptionHandling();
 
 if (app.Environment.IsDevelopment())
