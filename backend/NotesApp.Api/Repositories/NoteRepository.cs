@@ -7,15 +7,6 @@ using NotesApp.Api.Models;
 
 namespace NotesApp.Api.Repositories
 {
-    /// <summary>
-    /// Raw, parameterized Dapper queries against the "notes" table (SQL Server).
-    ///
-    /// DATA ISOLATION GUARDRAIL:
-    /// Every single query below filters explicitly by "user_id = @UserId".
-    /// The userId parameter always originates from the validated JWT claims
-    /// in the controller layer, never from client-supplied route/body data,
-    /// so a user can never read, modify, or delete another user's notes.
-    /// </summary>
     public class NoteRepository : INoteRepository
     {
         private readonly IDbConnectionFactory _connectionFactory;
@@ -89,7 +80,6 @@ namespace NotesApp.Api.Repositories
 
         public async Task<Note?> UpdateAsync(Guid noteId, Guid userId, string title, string content, bool isPinned)
         {
-            // updated_at is programmatically set on every UPDATE, per requirement.
             const string sql = @"
                 UPDATE dbo.notes
                 SET title      = @Title,
