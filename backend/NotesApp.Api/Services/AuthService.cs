@@ -10,16 +10,11 @@ using NotesApp.Api.Repositories;
 
 namespace NotesApp.Api.Services
 {
-    /// <summary>
-    /// Handles registration, login, password hashing (BCrypt) and JWT issuance.
-    /// </summary>
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
-        // Work factor for BCrypt. 12 is a reasonable, current-day minimum for
-        // interactive login paths; tune upward as hardware improves.
         private const int BCryptWorkFactor = 12;
 
         public AuthService(IUserRepository userRepository, IConfiguration configuration)
@@ -56,7 +51,6 @@ namespace NotesApp.Api.Services
             var normalizedEmail = request.Email.Trim().ToLowerInvariant();
             var user = await _userRepository.GetByEmailAsync(normalizedEmail);
 
-            // Constant-shaped failure: don't reveal whether the email exists.
             if (user is null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 throw new AuthValidationException("Invalid email or password.");
 
@@ -103,11 +97,6 @@ namespace NotesApp.Api.Services
         }
     }
 
-    /// <summary>
-    /// Thrown for expected, user-facing auth validation failures (bad credentials,
-    /// duplicate email, weak password). Caught explicitly in the controller and
-    /// mapped to HTTP 400/401, never surfaced as a 500 by the global handler.
-    /// </summary>
     public class AuthValidationException : Exception
     {
         public AuthValidationException(string message) : base(message) { }
