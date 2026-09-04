@@ -2,9 +2,6 @@ using System;
 
 namespace NotesApp.Api.Models
 {
-    /// <summary>
-    /// Represents a persisted note record. Maps 1:1 to the "notes" table.
-    /// </summary>
     public class Note
     {
         public Guid Id { get; set; }
