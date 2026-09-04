@@ -22,11 +22,6 @@ namespace NotesApp.Api.Controllers
             _noteRepository = noteRepository;
         }
 
-        /// <summary>
-        /// Resolves the current user's id strictly from validated JWT claims.
-        /// This value — never any client-supplied id — is what every
-        /// repository call uses to scope data access.
-        /// </summary>
         private Guid CurrentUserId
         {
             get
