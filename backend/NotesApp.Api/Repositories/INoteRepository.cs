@@ -5,10 +5,6 @@ using NotesApp.Api.Models;
 
 namespace NotesApp.Api.Repositories
 {
-    /// <summary>
-    /// Every method requires the caller's userId and enforces row-level
-    /// ownership at the SQL level (WHERE user_id = @UserId).
-    /// </summary>
     public interface INoteRepository
     {
         Task<IEnumerable<Note>> GetAllForUserAsync(Guid userId);
