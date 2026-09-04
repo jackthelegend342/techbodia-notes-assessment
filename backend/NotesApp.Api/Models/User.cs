@@ -2,27 +2,18 @@ using System;
 
 namespace NotesApp.Api.Models
 {
-    /// <summary>
-    /// Represents a persisted user record. Maps 1:1 to the "users" table.
-    /// </summary>
     public class User
     {
         public Guid Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string DisplayName { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Argon2id hash of the user's password. Never serialized to API responses.
-        /// </summary>
         public string PasswordHash { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
 
-    /// <summary>
-    /// Safe, outward-facing projection of a User with no secret material.
-    /// </summary>
     public class UserDto
     {
         public Guid Id { get; set; }
