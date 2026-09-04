@@ -6,10 +6,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace NotesApp.Api.Data
 {
-    /// <summary>
-    /// Abstraction over creation of ADO.NET connections to SQL Server.
-    /// Keeps connection-string / provider concerns out of repositories.
-    /// </summary>
     public interface IDbConnectionFactory
     {
         Task<IDbConnection> CreateOpenConnectionAsync();
